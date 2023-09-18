@@ -1,0 +1,117 @@
+**********************************************************************
+** Visual Studio 2022 Developer Command Prompt v17.6.4
+** Copyright (c) 2022 Microsoft Corporation
+**********************************************************************
+The system cannot find the file specified.
+
+D:\Training\phase3\day6\Assignment5>dotnet build
+MSBuild version 17.6.3+07e294721 for .NET
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  Assignment5 -> D:\Training\phase3\day6\Assignment5\Assignment5\bin\Debug\net6.0\Assignment5.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.53
+
+D:\Training\phase3\day6\Assignment5>docker login
+Authenticating with existing credentials...
+Login Succeeded
+
+Logging in with your password grants your terminal complete access to your account.
+For better security, log in with a limited-privilege personal access token. Learn more at https://docs.docker.com/go/access-tokens/
+
+D:\Training\phase3\day6\Assignment5>docker build -t calculator-img -f D:\Training\phase3\day6\Assignment5\Assignment5\Dockerfile .
+[+] Building 18.9s (18/18) FINISHED                                                                      docker:default
+ => [internal] load .dockerignore                                                                                  0.1s
+ => => transferring context: 382B                                                                                  0.0s
+ => [internal] load build definition from Dockerfile                                                               0.1s
+ => => transferring dockerfile: 780B                                                                               0.0s
+ => [internal] load metadata for mcr.microsoft.com/dotnet/sdk:6.0                                                  0.2s
+ => [internal] load metadata for mcr.microsoft.com/dotnet/runtime:6.0                                              0.8s
+ => [build 1/7] FROM mcr.microsoft.com/dotnet/sdk:6.0@sha256:9ffba4bc057861c60464f413021359ae151d918a8d696849e65f  0.0s
+ => [base 1/2] FROM mcr.microsoft.com/dotnet/runtime:6.0@sha256:7ca6ce3318a124f8b02dacb58d4252da80171897428240495  0.3s
+ => => resolve mcr.microsoft.com/dotnet/runtime:6.0@sha256:7ca6ce3318a124f8b02dacb58d4252da801718974282404952c628  0.1s
+ => => sha256:33a167776da535dc7ee195dd61247ab579157fbb00a040eee073ee715448bdea 1.93kB / 1.93kB                     0.0s
+ => => sha256:7ca6ce3318a124f8b02dacb58d4252da801718974282404952c6282530eb923c 1.79kB / 1.79kB                     0.0s
+ => => sha256:3ffc31ae553610e4506668cbd5b04431c365959b05af44c22d1dd058eb3a5292 1.16kB / 1.16kB                     0.0s
+ => [internal] load build context                                                                                  0.1s
+ => => transferring context: 5.28kB                                                                                0.0s
+ => CACHED [build 2/7] WORKDIR /src                                                                                0.0s
+ => [build 3/7] COPY [Assignment5/Assignment5.csproj, Assignment5/]                                                0.2s
+ => [build 4/7] RUN dotnet restore "Assignment5/Assignment5.csproj"                                                8.0s
+ => [base 2/2] WORKDIR /app                                                                                        0.1s
+ => [final 1/2] WORKDIR /app                                                                                       0.1s
+ => [build 5/7] COPY . .                                                                                           0.1s
+ => [build 6/7] WORKDIR /src/Assignment5                                                                           0.1s
+ => [build 7/7] RUN dotnet build "Assignment5.csproj" -c Release -o /app/build                                     5.9s
+ => [publish 1/1] RUN dotnet publish "Assignment5.csproj" -c Release -o /app/publish /p:UseAppHost=false           3.1s
+ => [final 2/2] COPY --from=publish /app/publish .                                                                 0.1s
+ => exporting to image                                                                                             0.1s
+ => => exporting layers                                                                                            0.1s
+ => => writing image sha256:236862dd31b9556ea3ea08b8a1bb2aa9e4cc5b954f2bdf48f328af4e515a8bcc                       0.0s
+ => => naming to docker.io/library/calculator-img                                                                  0.0s
+
+What's Next?
+  View summary of image vulnerabilities and recommendations → docker scout quickview
+
+D:\Training\phase3\day6\Assignment5>docker images
+REPOSITORY                        TAG       IMAGE ID       CREATED          SIZE
+calculator-img                    latest    236862dd31b9   51 seconds ago   192MB
+pizzafrontend                     latest    0b3bb8deeea7   26 hours ago     212MB
+movie-img                         latest    a8aca02873fa   40 hours ago     211MB
+movieimg                          latest    fa11f0c6f0cb   2 days ago       263MB
+<none>                            <none>    ff9b89c25280   2 days ago       212MB
+pizzabackend                      latest    a528e7a1d82e   2 days ago       212MB
+my-web-app                        latest    fd7f2506a862   3 days ago       211MB
+mvc-img                           latest    825e1d70aa07   3 days ago       216MB
+assignment3                       dev       add776065d97   3 days ago       208MB
+webappmvc                         dev       732a8d4d80b9   3 days ago       208MB
+mywebapp                          dev       11d67e978fa6   3 days ago       208MB
+mcr.microsoft.com/dotnet/aspnet   6.0       72903cb50391   3 days ago       208MB
+aishu030/ourrepo                  latest    7ef9fd74605b   4 days ago       212MB
+counting-image                    latest    7ef9fd74605b   4 days ago       212MB
+hello-world                       latest    9c7a54a9a43c   4 months ago     13.3kB
+
+D:\Training\phase3\day6\Assignment5>docker run calculator-img
+Add two numbers
+Result: 24
+Subtract two numbers
+Result: 0
+Multiply two numbers
+Result: 144
+Divide two numbers
+Result: 1
+
+D:\Training\phase3\day6\Assignment5>docker run -it --rm -p 5212:80 calculator-img calcontainer
+Add two numbers
+Result: 24
+Subtract two numbers
+Result: 0
+Multiply two numbers
+Result: 144
+Divide two numbers
+Result: 1
+
+D:\Training\phase3\day6\Assignment5>docker tag calculator-img:latest aishu030/assign5:latest
+
+D:\Training\phase3\day6\Assignment5>docker push aishu030/assign5:tagname
+The push refers to repository [docker.io/aishu030/assign5]
+tag does not exist: aishu030/assign5:tagname
+
+D:\Training\phase3\day6\Assignment5>docker push aishu030/assign5:latest
+The push refers to repository [docker.io/aishu030/assign5]
+102451894449: Pushed
+5f70bf18a086: Pushed
+d5a1dc216ed8: Pushed
+e08d2df67902: Pushed
+d11d6f920aa3: Pushed
+7665576fefb9: Pushed
+6e3b92711bf1: Mounted from aishu030/ourrepo
+latest: digest: sha256:5d414062156dda44017aee8fe117cab79cc7c0d9861e91593c0d04b15bc364a3 size: 1783
+
+D:\Training\phase3\day6\Assignment5>
+
+
